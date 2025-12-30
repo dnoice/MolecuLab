@@ -142,5 +142,176 @@
     "cpkColor": "#8aff00",
     "covalentRadius": 1.41,
     "vanDerWaalsRadius": 1.73
+  },
+  "B": {
+    "symbol": "B",
+    "name": "Boron",
+    "atomicNumber": 5,
+    "atomicMass": 10.811,
+    "cpkColor": "#ffb5b5",
+    "covalentRadius": 0.84,
+    "vanDerWaalsRadius": 1.92
+  },
+  "Si": {
+    "symbol": "Si",
+    "name": "Silicon",
+    "atomicNumber": 14,
+    "atomicMass": 28.086,
+    "cpkColor": "#f0c8a0",
+    "covalentRadius": 1.11,
+    "vanDerWaalsRadius": 2.10
+  },
+  "Al": {
+    "symbol": "Al",
+    "name": "Aluminum",
+    "atomicNumber": 13,
+    "atomicMass": 26.982,
+    "cpkColor": "#bfa6a6",
+    "covalentRadius": 1.21,
+    "vanDerWaalsRadius": 1.84
+  },
+  "Li": {
+    "symbol": "Li",
+    "name": "Lithium",
+    "atomicNumber": 3,
+    "atomicMass": 6.941,
+    "cpkColor": "#cc80ff",
+    "covalentRadius": 1.28,
+    "vanDerWaalsRadius": 1.82
+  },
+  "Be": {
+    "symbol": "Be",
+    "name": "Beryllium",
+    "atomicNumber": 4,
+    "atomicMass": 9.012,
+    "cpkColor": "#c2ff00",
+    "covalentRadius": 0.96,
+    "vanDerWaalsRadius": 1.53
+  },
+  "Cu": {
+    "symbol": "Cu",
+    "name": "Copper",
+    "atomicNumber": 29,
+    "atomicMass": 63.546,
+    "cpkColor": "#c88033",
+    "covalentRadius": 1.32,
+    "vanDerWaalsRadius": 1.40
+  },
+  "Mn": {
+    "symbol": "Mn",
+    "name": "Manganese",
+    "atomicNumber": 25,
+    "atomicMass": 54.938,
+    "cpkColor": "#9c7ac7",
+    "covalentRadius": 1.39,
+    "vanDerWaalsRadius": 2.05
+  },
+  "Co": {
+    "symbol": "Co",
+    "name": "Cobalt",
+    "atomicNumber": 27,
+    "atomicMass": 58.933,
+    "cpkColor": "#f090a0",
+    "covalentRadius": 1.26,
+    "vanDerWaalsRadius": 2.00
+  },
+  "Ni": {
+    "symbol": "Ni",
+    "name": "Nickel",
+    "atomicNumber": 28,
+    "atomicMass": 58.693,
+    "cpkColor": "#50d050",
+    "covalentRadius": 1.24,
+    "vanDerWaalsRadius": 1.63
+  },
+  "Se": {
+    "symbol": "Se",
+    "name": "Selenium",
+    "atomicNumber": 34,
+    "atomicMass": 78.971,
+    "cpkColor": "#ffa100",
+    "covalentRadius": 1.20,
+    "vanDerWaalsRadius": 1.90
+  },
+  "As": {
+    "symbol": "As",
+    "name": "Arsenic",
+    "atomicNumber": 33,
+    "atomicMass": 74.922,
+    "cpkColor": "#bd80e3",
+    "covalentRadius": 1.19,
+    "vanDerWaalsRadius": 1.85
+  },
+  "He": {
+    "symbol": "He",
+    "name": "Helium",
+    "atomicNumber": 2,
+    "atomicMass": 4.003,
+    "cpkColor": "#d9ffff",
+    "covalentRadius": 0.28,
+    "vanDerWaalsRadius": 1.40
+  },
+  "Ne": {
+    "symbol": "Ne",
+    "name": "Neon",
+    "atomicNumber": 10,
+    "atomicMass": 20.180,
+    "cpkColor": "#b3e3f5",
+    "covalentRadius": 0.58,
+    "vanDerWaalsRadius": 1.54
+  },
+  "Ar": {
+    "symbol": "Ar",
+    "name": "Argon",
+    "atomicNumber": 18,
+    "atomicMass": 39.948,
+    "cpkColor": "#80d1e3",
+    "covalentRadius": 1.06,
+    "vanDerWaalsRadius": 1.88
+  },
+  "Kr": {
+    "symbol": "Kr",
+    "name": "Krypton",
+    "atomicNumber": 36,
+    "atomicMass": 83.798,
+    "cpkColor": "#5cb8d1",
+    "covalentRadius": 1.16,
+    "vanDerWaalsRadius": 2.02
+  },
+  "Xe": {
+    "symbol": "Xe",
+    "name": "Xenon",
+    "atomicNumber": 54,
+    "atomicMass": 131.293,
+    "cpkColor": "#429eb0",
+    "covalentRadius": 1.40,
+    "vanDerWaalsRadius": 2.16
+  },
+  "Ag": {
+    "symbol": "Ag",
+    "name": "Silver",
+    "atomicNumber": 47,
+    "atomicMass": 107.868,
+    "cpkColor": "#c0c0c0",
+    "covalentRadius": 1.45,
+    "vanDerWaalsRadius": 1.72
+  },
+  "Au": {
+    "symbol": "Au",
+    "name": "Gold",
+    "atomicNumber": 79,
+    "atomicMass": 196.967,
+    "cpkColor": "#ffd123",
+    "covalentRadius": 1.36,
+    "vanDerWaalsRadius": 1.66
+  },
+  "Pt": {
+    "symbol": "Pt",
+    "name": "Platinum",
+    "atomicNumber": 78,
+    "atomicMass": 195.084,
+    "cpkColor": "#d0d0e0",
+    "covalentRadius": 1.36,
+    "vanDerWaalsRadius": 1.75
   }
 }
