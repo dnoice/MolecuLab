@@ -1,0 +1,92 @@
+{
+  "hydroxyl": {
+    "name": "Hydroxyl",
+    "formula": "-OH",
+    "description": "Alcohol functional group",
+    "smarts": "[OX2H]"
+  },
+  "carbonyl": {
+    "name": "Carbonyl",
+    "formula": "C=O",
+    "description": "Carbon-oxygen double bond",
+    "smarts": "[CX3]=[OX1]"
+  },
+  "carboxyl": {
+    "name": "Carboxyl",
+    "formula": "-COOH",
+    "description": "Carboxylic acid group",
+    "smarts": "[CX3](=O)[OX2H1]"
+  },
+  "amine": {
+    "name": "Amine",
+    "formula": "-NH₂",
+    "description": "Amino group",
+    "smarts": "[NX3;H2,H1;!$(NC=O)]"
+  },
+  "aromatic": {
+    "name": "Aromatic",
+    "formula": "Ring",
+    "description": "Aromatic ring system",
+    "smarts": "[aR]"
+  },
+  "ether": {
+    "name": "Ether",
+    "formula": "C-O-C",
+    "description": "Ether linkage",
+    "smarts": "[OD2]([#6])[#6]"
+  },
+  "ester": {
+    "name": "Ester",
+    "formula": "-COO-",
+    "description": "Ester functional group",
+    "smarts": "[#6][CX3](=O)[OX2H0][#6]"
+  },
+  "alkyl": {
+    "name": "Alkyl",
+    "formula": "-CH₃, -CH₂-",
+    "description": "Saturated hydrocarbon chain",
+    "smarts": "[CX4]"
+  },
+  "alkene": {
+    "name": "Alkene",
+    "formula": "C=C",
+    "description": "Carbon-carbon double bond",
+    "smarts": "[CX3]=[CX3]"
+  },
+  "alkyne": {
+    "name": "Alkyne",
+    "formula": "C≡C",
+    "description": "Carbon-carbon triple bond",
+    "smarts": "[CX2]#[CX2]"
+  },
+  "amide": {
+    "name": "Amide",
+    "formula": "-CONH₂",
+    "description": "Amide functional group",
+    "smarts": "[NX3][CX3](=[OX1])[#6]"
+  },
+  "nitro": {
+    "name": "Nitro",
+    "formula": "-NO₂",
+    "description": "Nitro group",
+    "smarts": "[N+](=O)[O-]"
+  },
+  "thiol": {
+    "name": "Thiol",
+    "formula": "-SH",
+    "description": "Sulfhydryl group",
+    "smarts": "[SX2H]"
+  },
+  "sulfide": {
+    "name": "Sulfide",
+    "formula": "C-S-C",
+    "description": "Thioether linkage",
+    "smarts": "[#16X2H0]"
+  },
+  "phosphate": {
+    "name": "Phosphate",
+    "formula": "-PO₄",
+    "description": "Phosphate group",
+    "smarts": "[PX4](=[OX1])([OX2])([OX2])[OX2]"
+  }
+}

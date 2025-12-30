@@ -1,0 +1,146 @@
+{
+  "H": {
+    "symbol": "H",
+    "name": "Hydrogen",
+    "atomicNumber": 1,
+    "atomicMass": 1.008,
+    "cpkColor": "#ffffff",
+    "covalentRadius": 0.31,
+    "vanDerWaalsRadius": 1.20
+  },
+  "C": {
+    "symbol": "C",
+    "name": "Carbon",
+    "atomicNumber": 6,
+    "atomicMass": 12.011,
+    "cpkColor": "#00ffcc",
+    "covalentRadius": 0.77,
+    "vanDerWaalsRadius": 1.70
+  },
+  "N": {
+    "symbol": "N",
+    "name": "Nitrogen",
+    "atomicNumber": 7,
+    "atomicMass": 14.007,
+    "cpkColor": "#3366ff",
+    "covalentRadius": 0.71,
+    "vanDerWaalsRadius": 1.55
+  },
+  "O": {
+    "symbol": "O",
+    "name": "Oxygen",
+    "atomicNumber": 8,
+    "atomicMass": 15.999,
+    "cpkColor": "#ff3366",
+    "covalentRadius": 0.66,
+    "vanDerWaalsRadius": 1.52
+  },
+  "F": {
+    "symbol": "F",
+    "name": "Fluorine",
+    "atomicNumber": 9,
+    "atomicMass": 18.998,
+    "cpkColor": "#90e050",
+    "covalentRadius": 0.64,
+    "vanDerWaalsRadius": 1.47
+  },
+  "P": {
+    "symbol": "P",
+    "name": "Phosphorus",
+    "atomicNumber": 15,
+    "atomicMass": 30.974,
+    "cpkColor": "#ff8800",
+    "covalentRadius": 1.07,
+    "vanDerWaalsRadius": 1.80
+  },
+  "S": {
+    "symbol": "S",
+    "name": "Sulfur",
+    "atomicNumber": 16,
+    "atomicMass": 32.065,
+    "cpkColor": "#ffd700",
+    "covalentRadius": 1.05,
+    "vanDerWaalsRadius": 1.80
+  },
+  "Cl": {
+    "symbol": "Cl",
+    "name": "Chlorine",
+    "atomicNumber": 17,
+    "atomicMass": 35.453,
+    "cpkColor": "#1ff01f",
+    "covalentRadius": 1.02,
+    "vanDerWaalsRadius": 1.75
+  },
+  "Br": {
+    "symbol": "Br",
+    "name": "Bromine",
+    "atomicNumber": 35,
+    "atomicMass": 79.904,
+    "cpkColor": "#a62929",
+    "covalentRadius": 1.20,
+    "vanDerWaalsRadius": 1.85
+  },
+  "I": {
+    "symbol": "I",
+    "name": "Iodine",
+    "atomicNumber": 53,
+    "atomicMass": 126.90,
+    "cpkColor": "#940094",
+    "covalentRadius": 1.39,
+    "vanDerWaalsRadius": 1.98
+  },
+  "Na": {
+    "symbol": "Na",
+    "name": "Sodium",
+    "atomicNumber": 11,
+    "atomicMass": 22.990,
+    "cpkColor": "#ab5cf2",
+    "covalentRadius": 1.66,
+    "vanDerWaalsRadius": 2.27
+  },
+  "K": {
+    "symbol": "K",
+    "name": "Potassium",
+    "atomicNumber": 19,
+    "atomicMass": 39.098,
+    "cpkColor": "#8f40d4",
+    "covalentRadius": 2.03,
+    "vanDerWaalsRadius": 2.75
+  },
+  "Ca": {
+    "symbol": "Ca",
+    "name": "Calcium",
+    "atomicNumber": 20,
+    "atomicMass": 40.078,
+    "cpkColor": "#3dff00",
+    "covalentRadius": 1.76,
+    "vanDerWaalsRadius": 2.31
+  },
+  "Fe": {
+    "symbol": "Fe",
+    "name": "Iron",
+    "atomicNumber": 26,
+    "atomicMass": 55.845,
+    "cpkColor": "#e06633",
+    "covalentRadius": 1.32,
+    "vanDerWaalsRadius": 2.04
+  },
+  "Zn": {
+    "symbol": "Zn",
+    "name": "Zinc",
+    "atomicNumber": 30,
+    "atomicMass": 65.38,
+    "cpkColor": "#7d80b0",
+    "covalentRadius": 1.22,
+    "vanDerWaalsRadius": 2.01
+  },
+  "Mg": {
+    "symbol": "Mg",
+    "name": "Magnesium",
+    "atomicNumber": 12,
+    "atomicMass": 24.305,
+    "cpkColor": "#8aff00",
+    "covalentRadius": 1.41,
+    "vanDerWaalsRadius": 1.73
+  }
+}
