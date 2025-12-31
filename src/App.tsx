@@ -6,11 +6,12 @@
  */
 import React, { useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Header, Footer, Sidebar, type SidebarSection } from './components/layout';
+import { Header, Footer, Sidebar, HeaderNav, type SidebarSection } from './components/layout';
 import {
   MolecularViewer,
   ViewerControls,
   MoleculeSelector,
+  ViewerToolbar,
   type MolecularViewerRef,
   type RenderMode,
   type Molecule,
@@ -155,11 +156,23 @@ const ViewerWrapper = styled.div`
 const MoleculeInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing['4']};
+  justify-content: space-between;
   padding: ${({ theme }) => theme.spacing['3']};
   background: ${({ theme }) => theme.glass.dark};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.radius.md};
+`;
+
+const InfoLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing['4']};
+`;
+
+const InfoRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing['3']};
 `;
 
 const MoleculeLabel = styled.span`
@@ -170,6 +183,59 @@ const MoleculeLabel = styled.span`
   strong {
     color: ${({ theme }) => theme.colors.primary};
   }
+`;
+
+const RenderBadge = styled.span`
+  padding: ${({ theme }) => `${theme.spacing['1']} ${theme.spacing['2']}`};
+  background: ${({ theme }) => theme.colors.secondary}20;
+  border: 1px solid ${({ theme }) => theme.colors.secondary}40;
+  border-radius: ${({ theme }) => theme.radius.sm};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+`;
+
+const ZoomControl = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing['1']};
+`;
+
+const ZoomButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary}20;
+    border-color: ${({ theme }) => theme.colors.primary}60;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+const ZoomValue = styled.span`
+  min-width: 44px;
+  text-align: center;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -185,6 +251,9 @@ const App: React.FC = () => {
   const [showBonds, setShowBonds] = useState(true);
   const [autoRotate, setAutoRotate] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(100);
+
+  // Menu state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Sidebar state
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -202,8 +271,10 @@ const App: React.FC = () => {
       id: 'elements',
       title: 'Elements',
       icon: <ElementsIcon />,
+      hideTitle: true,
       content: (
         <MoleculeSelector
+          title="Elements"
           elements={SAMPLE_ELEMENTS}
           selectedElement={selectedElement}
           onElementSelect={setSelectedElement}
@@ -251,8 +322,15 @@ const App: React.FC = () => {
       <BackgroundEffects />
 
       <Header
-        moleculeName={molecule.name}
-        onMenuToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
+      />
+
+      <HeaderNav
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onAbout={() => console.log('About clicked')}
+        onSettings={() => console.log('Settings clicked')}
+        onHelp={() => console.log('Help clicked')}
       />
 
       <MainLayout>
@@ -265,6 +343,23 @@ const App: React.FC = () => {
         />
 
         <ViewerArea>
+          <ViewerToolbar
+            onNewMolecule={() => console.log('New molecule')}
+            onOpenFile={() => console.log('Open file')}
+            onSave={() => console.log('Save')}
+            onExport={() => console.log('Export')}
+            onUndo={() => console.log('Undo')}
+            onRedo={() => console.log('Redo')}
+            onZoomIn={() => viewerRef.current?.zoomIn()}
+            onZoomOut={() => viewerRef.current?.zoomOut()}
+            onResetView={() => viewerRef.current?.resetCamera()}
+            onFullscreen={() => console.log('Fullscreen')}
+            onMeasure={() => console.log('Measure')}
+            onSearch={() => console.log('Search')}
+            onCalculator={() => console.log('Calculator')}
+            onPeriodicTable={() => console.log('Periodic table')}
+          />
+
           <ViewerWrapper>
             <MolecularViewer
               ref={viewerRef}
@@ -278,31 +373,48 @@ const App: React.FC = () => {
           </ViewerWrapper>
 
           <MoleculeInfo>
-            <MoleculeLabel>
-              <strong>Molecule:</strong> {molecule.name}
-            </MoleculeLabel>
-            <MoleculeLabel>
-              <strong>Atoms:</strong> {molecule.atoms.length}
-            </MoleculeLabel>
-            <MoleculeLabel>
-              <strong>Bonds:</strong> {molecule.bonds.length}
-            </MoleculeLabel>
-            {selectedElement && (
+            <InfoLeft>
               <MoleculeLabel>
-                <strong>Selected:</strong> {selectedElement.name} ({selectedElement.symbol})
+                <strong>Molecule:</strong> {molecule.name}
               </MoleculeLabel>
-            )}
+              <MoleculeLabel>
+                <strong>Atoms:</strong> {molecule.atoms.length}
+              </MoleculeLabel>
+              <MoleculeLabel>
+                <strong>Bonds:</strong> {molecule.bonds.length}
+              </MoleculeLabel>
+              {selectedElement && (
+                <MoleculeLabel>
+                  <strong>Selected:</strong> {selectedElement.name} ({selectedElement.symbol})
+                </MoleculeLabel>
+              )}
+            </InfoLeft>
+
+            <InfoRight>
+              <RenderBadge>
+                {renderMode === 'ball-stick' ? 'Ball & Stick' : renderMode}
+              </RenderBadge>
+              <ZoomControl>
+                <ZoomButton
+                  onClick={() => setZoomLevel(Math.max(25, zoomLevel - 25))}
+                  disabled={zoomLevel <= 25}
+                >
+                  −
+                </ZoomButton>
+                <ZoomValue>{zoomLevel}%</ZoomValue>
+                <ZoomButton
+                  onClick={() => setZoomLevel(Math.min(400, zoomLevel + 25))}
+                  disabled={zoomLevel >= 400}
+                >
+                  +
+                </ZoomButton>
+              </ZoomControl>
+            </InfoRight>
           </MoleculeInfo>
         </ViewerArea>
       </MainLayout>
 
-      <Footer
-        atomCount={molecule.atoms.length}
-        bondCount={molecule.bonds.length}
-        zoomLevel={zoomLevel}
-        renderMode={renderMode === 'ball-stick' ? 'Ball & Stick' : renderMode}
-        onZoomChange={setZoomLevel}
-      />
+      <Footer />
     </AppContainer>
   );
 };

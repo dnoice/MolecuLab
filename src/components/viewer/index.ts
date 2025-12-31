@@ -40,3 +40,9 @@ export {
   type DataFormat,
   type Resolution,
 } from './ExportMenu';
+
+export {
+  ViewerToolbar,
+  type ViewerToolbarProps,
+  type ToolbarAction,
+} from './ViewerToolbar';

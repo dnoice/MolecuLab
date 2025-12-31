@@ -17,6 +17,7 @@ export interface SidebarSection {
   title: string;
   icon: React.ReactNode;
   content: React.ReactNode;
+  hideTitle?: boolean;
 }
 
 export interface SidebarProps {
@@ -284,9 +285,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {!isCollapsed && activeContent && (
         <ContentPanel>
-          <SectionHeader>
-            <SectionTitle>{activeContent.title}</SectionTitle>
-          </SectionHeader>
+          {!activeContent.hideTitle && (
+            <SectionHeader>
+              <SectionTitle>{activeContent.title}</SectionTitle>
+            </SectionHeader>
+          )}
           <SectionContent>{activeContent.content}</SectionContent>
         </ContentPanel>
       )}

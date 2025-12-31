@@ -6,7 +6,7 @@
  */
 import React, { useState, useMemo } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { GlassPanel, SearchInput, Chip, Tooltip } from '../common';
+import { GlassPanel, SearchInput, Tooltip } from '../common';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TYPES
@@ -34,6 +34,7 @@ export type ElementCategory =
   | 'actinide';
 
 export interface MoleculeSelectorProps {
+  title?: string;
   elements: Element[];
   selectedElement?: Element;
   onElementSelect: (element: Element) => void;
@@ -60,39 +61,106 @@ const pulseGlow = keyframes`
 const SelectorWrapper = styled(GlassPanel)`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing['3']};
-  padding: ${({ theme }) => theme.spacing['3']};
+  gap: ${({ theme }) => theme.spacing['4']};
+  padding: ${({ theme }) => theme.spacing['4']};
   max-height: 100%;
   overflow: hidden;
 `;
 
+const MainTitle = styled.h2`
+  margin: 0;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  color: ${({ theme }) => theme.colors.primary};
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: ${({ theme }) => theme.spacing['3']};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
 const SearchWrapper = styled.div`
   flex-shrink: 0;
+  width: 100%;
+
+  /* Override SearchInput styles to fit container */
+  > div {
+    width: 100% !important;
+  }
+`;
+
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing['3']};
 `;
 
 const SectionTitle = styled.h3`
   margin: 0;
   font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
+  font-size: 11px;
   font-weight: ${({ theme }) => theme.fontWeights.semibold};
   color: ${({ theme }) => theme.colors.textMuted};
   text-transform: uppercase;
   letter-spacing: 0.1em;
 `;
 
-const ChipsRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing['1']};
+const Divider = styled.div`
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    ${({ theme }) => theme.colors.border},
+    transparent
+  );
 `;
 
+// Category chips styling
+const CategoryFilter = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing['2']};
+`;
+
+interface CategoryChipProps {
+  $color: string;
+  $isActive: boolean;
+}
+
+const CategoryChip = styled.button<CategoryChipProps>`
+  padding: ${({ theme }) => `${theme.spacing['1']} ${theme.spacing['3']}`};
+  background: ${({ $isActive, $color }) => ($isActive ? `${$color}20` : 'rgba(255, 255, 255, 0.03)')};
+  border: 1px solid ${({ $isActive, $color, theme }) =>
+    $isActive ? $color : theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 11px;
+  color: ${({ $isActive, $color, theme }) =>
+    $isActive ? $color : theme.colors.textSecondary};
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  &:hover {
+    background: ${({ $color }) => `${$color}15`};
+    border-color: ${({ $color }) => `${$color}80`};
+    color: ${({ $color }) => $color};
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+`;
+
+// Elements grid styling
 const ElementsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
-  gap: ${({ theme }) => theme.spacing['1']};
+  grid-template-columns: repeat(4, 1fr);
+  gap: ${({ theme }) => theme.spacing['2']};
   flex: 1;
   overflow-y: auto;
-  padding-right: ${({ theme }) => theme.spacing['1']};
+  padding: ${({ theme }) => theme.spacing['1']};
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -125,29 +193,38 @@ const ElementTile = styled.button<ElementTileProps>`
   justify-content: center;
   gap: 2px;
   padding: ${({ theme }) => theme.spacing['1']};
-  background: ${({ $color }) => `${$color}15`};
-  border: 1px solid ${({ $color, $isSelected }) => ($isSelected ? $color : `${$color}40`)};
-  border-radius: ${({ theme }) => theme.radius.sm};
+  background: ${({ $color }) => `${$color}10`};
+  border: 1px solid ${({ $color, $isSelected }) => ($isSelected ? $color : `${$color}30`)};
+  border-radius: ${({ theme }) => theme.radius.md};
   cursor: pointer;
-  transition: all ${({ theme }) => theme.transitions.fast};
+  transition: all 0.15s ease;
 
   ${({ $isSelected, $color }) =>
     $isSelected &&
     `
-    background: ${$color}30;
-    box-shadow: 0 0 12px ${$color}60;
+    background: ${$color}25;
+    box-shadow: 0 0 12px ${$color}40, inset 0 0 8px ${$color}20;
     animation: ${pulseGlow} 2s ease-in-out infinite;
   `}
 
   &:hover {
-    background: ${({ $color }) => `${$color}25`};
-    border-color: ${({ $color }) => $color};
-    transform: scale(1.05);
+    background: ${({ $color }) => `${$color}20`};
+    border-color: ${({ $color }) => `${$color}80`};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: translateY(0);
+    box-shadow: none;
   }
+`;
+
+const ElementNumber = styled.span`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 9px;
+  color: ${({ theme }) => theme.colors.textMuted};
+  line-height: 1;
 `;
 
 const ElementSymbol = styled.span<{ $color: string }>`
@@ -156,56 +233,6 @@ const ElementSymbol = styled.span<{ $color: string }>`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ $color }) => $color};
   line-height: 1;
-`;
-
-const ElementNumber = styled.span`
-  font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: 8px;
-  color: ${({ theme }) => theme.colors.textMuted};
-  line-height: 1;
-`;
-
-const CategoryFilter = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing['1']};
-`;
-
-interface CategoryChipProps {
-  $color: string;
-  $isActive: boolean;
-}
-
-const CategoryChip = styled.button<CategoryChipProps>`
-  padding: ${({ theme }) => `${theme.spacing['0.5']} ${theme.spacing['2']}`};
-  background: ${({ $isActive, $color }) => ($isActive ? `${$color}20` : 'transparent')};
-  border: 1px solid ${({ $isActive, $color, theme }) =>
-    $isActive ? $color : theme.colors.border};
-  border-radius: ${({ theme }) => theme.radius.full};
-  font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ $isActive, $color, theme }) =>
-    $isActive ? $color : theme.colors.textMuted};
-  cursor: pointer;
-  transition: all ${({ theme }) => theme.transitions.fast};
-  text-transform: capitalize;
-
-  &:hover {
-    background: ${({ $color }) => `${$color}15`};
-    border-color: ${({ $color }) => $color};
-    color: ${({ $color }) => $color};
-  }
-`;
-
-const Section = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing['2']};
-`;
-
-const Divider = styled.div`
-  height: 1px;
-  background: ${({ theme }) => theme.colors.border};
 `;
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -225,18 +252,28 @@ const CATEGORY_COLORS: Record<ElementCategory, string> = {
   actinide: '#cc0066',
 };
 
+const CATEGORY_LABELS: Record<ElementCategory, string> = {
+  nonmetal: 'Nonmetal',
+  'noble-gas': 'Noble Gas',
+  'alkali-metal': 'Alkali',
+  'alkaline-earth': 'Alkaline',
+  metalloid: 'Metalloid',
+  halogen: 'Halogen',
+  'transition-metal': 'Transition',
+  'post-transition': 'Post-Trans',
+  lanthanide: 'Lanthanide',
+  actinide: 'Actinide',
+};
+
 // ═══════════════════════════════════════════════════════════════════════════
 // COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const MoleculeSelector: React.FC<MoleculeSelectorProps> = ({
+  title = 'Elements',
   elements,
   selectedElement,
   onElementSelect,
-  recentElements = [],
-  favorites = [],
-  onAddFavorite,
-  onRemoveFavorite,
   className,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -260,69 +297,22 @@ export const MoleculeSelector: React.FC<MoleculeSelectorProps> = ({
     });
   }, [elements, searchQuery, selectedCategory]);
 
-  const isFavorite = (element: Element) =>
-    favorites.some((f) => f.symbol === element.symbol);
-
   const handleElementClick = (element: Element) => {
     onElementSelect(element);
   };
 
-  const handleFavoriteToggle = (element: Element, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (isFavorite(element)) {
-      onRemoveFavorite?.(element);
-    } else {
-      onAddFavorite?.(element);
-    }
-  };
-
   return (
     <SelectorWrapper className={className} variant="dark">
+      {title && <MainTitle>{title}</MainTitle>}
+
       <SearchWrapper>
         <SearchInput
           placeholder="Search elements..."
           value={searchQuery}
           onChange={setSearchQuery}
+          fullWidth
         />
       </SearchWrapper>
-
-      {recentElements.length > 0 && (
-        <Section>
-          <SectionTitle>Recent</SectionTitle>
-          <ChipsRow>
-            {recentElements.slice(0, 6).map((el) => (
-              <Chip
-                key={el.symbol}
-                variant="element"
-                onClick={() => handleElementClick(el)}
-                selected={selectedElement?.symbol === el.symbol}
-              >
-                {el.symbol}
-              </Chip>
-            ))}
-          </ChipsRow>
-        </Section>
-      )}
-
-      {favorites.length > 0 && (
-        <Section>
-          <SectionTitle>Favorites</SectionTitle>
-          <ChipsRow>
-            {favorites.map((el) => (
-              <Chip
-                key={el.symbol}
-                variant="element"
-                onClick={() => handleElementClick(el)}
-                selected={selectedElement?.symbol === el.symbol}
-                removable
-                onRemove={() => onRemoveFavorite?.(el)}
-              >
-                {el.symbol}
-              </Chip>
-            ))}
-          </ChipsRow>
-        </Section>
-      )}
 
       <Divider />
 
@@ -330,7 +320,7 @@ export const MoleculeSelector: React.FC<MoleculeSelectorProps> = ({
         <SectionTitle>Categories</SectionTitle>
         <CategoryFilter>
           <CategoryChip
-            $color="#ffffff"
+            $color="#00f5ff"
             $isActive={selectedCategory === null}
             onClick={() => setSelectedCategory(null)}
           >
@@ -343,11 +333,13 @@ export const MoleculeSelector: React.FC<MoleculeSelectorProps> = ({
               $isActive={selectedCategory === cat}
               onClick={() => setSelectedCategory(cat)}
             >
-              {cat.replace('-', ' ')}
+              {CATEGORY_LABELS[cat] || cat.replace('-', ' ')}
             </CategoryChip>
           ))}
         </CategoryFilter>
       </Section>
+
+      <Divider />
 
       <Section style={{ flex: 1, overflow: 'hidden' }}>
         <SectionTitle>
@@ -364,7 +356,6 @@ export const MoleculeSelector: React.FC<MoleculeSelectorProps> = ({
                 $color={element.color}
                 $isSelected={selectedElement?.symbol === element.symbol}
                 onClick={() => handleElementClick(element)}
-                onDoubleClick={(e) => handleFavoriteToggle(element, e)}
               >
                 <ElementNumber>{element.atomicNumber}</ElementNumber>
                 <ElementSymbol $color={element.color}>{element.symbol}</ElementSymbol>

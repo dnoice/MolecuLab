@@ -16,8 +16,6 @@ export interface HeaderProps {
   onMenuToggle?: () => void;
   onSettingsClick?: () => void;
   onHelpClick?: () => void;
-  moleculeName?: string;
-  isModified?: boolean;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -156,38 +154,6 @@ const LogoSubtitle = styled.span`
   letter-spacing: 0.15em;
 `;
 
-const CenterSection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing['2']};
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-`;
-
-interface MoleculeNameProps {
-  $isModified: boolean;
-}
-
-const MoleculeName = styled.div<MoleculeNameProps>`
-  font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  padding: ${({ theme }) => `${theme.spacing['1']} ${theme.spacing['3']}`};
-  background: ${({ theme }) => theme.glass.subtle};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.radius.md};
-
-  ${({ $isModified, theme }) =>
-    $isModified &&
-    `
-    &::after {
-      content: ' •';
-      color: ${theme.colors.warning};
-    }
-  `}
-`;
-
 const RightSection = styled.div`
   display: flex;
   align-items: center;
@@ -233,8 +199,6 @@ export const Header: React.FC<HeaderProps> = ({
   onMenuToggle,
   onSettingsClick,
   onHelpClick,
-  moleculeName,
-  isModified = false,
 }) => {
   return (
     <HeaderWrapper>
@@ -260,12 +224,6 @@ export const Header: React.FC<HeaderProps> = ({
           </LogoText>
         </LogoWrapper>
       </LeftSection>
-
-      {moleculeName && (
-        <CenterSection>
-          <MoleculeName $isModified={isModified}>{moleculeName}</MoleculeName>
-        </CenterSection>
-      )}
 
       <RightSection>
         <IconButton
