@@ -25,6 +25,12 @@ export const theme = {
     neonPurple: '#9933ff',
     neonOrange: '#ff8800',
 
+    // Semantic aliases (convenience)
+    primary: '#00f5ff',
+    secondary: '#ff00ff',
+    accent: '#ffd700',
+    border: 'rgba(255, 255, 255, 0.1)',
+
     // Semantic colors
     success: '#00ff88',
     warning: '#ffd700',
@@ -48,6 +54,14 @@ export const theme = {
     elementCl: '#1ff01f',
     elementBr: '#a62929',
     elementI: '#940094',
+  },
+
+  // Glass effect presets
+  glass: {
+    dark: 'rgba(10, 10, 15, 0.85)',
+    medium: 'rgba(20, 20, 35, 0.7)',
+    light: 'rgba(30, 30, 50, 0.5)',
+    subtle: 'rgba(255, 255, 255, 0.03)',
   },
 
   glows: {
@@ -181,6 +195,8 @@ export const theme = {
     background: 0,
     content: 1,
     docked: 10,
+    header: 50,
+    sidebar: 40,
     dropdown: 100,
     sticky: 200,
     banner: 300,
